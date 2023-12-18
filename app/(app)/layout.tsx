@@ -1,16 +1,15 @@
+'use server';
+
 import { env } from "@/lib/env.server";
 import Script from "next/script";
 import React from "react";
-
 
 
 export default async function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <body>
-
         {children}
-
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
         <Script id="google-analytics">
           {`

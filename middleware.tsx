@@ -1,6 +1,6 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
-import { env } from './lib/env.server';
+import {type CookieOptions, createServerClient} from '@supabase/ssr';
+import {type NextRequest, NextResponse} from 'next/server';
+import {env} from './lib/env.server';
 
 export async function middleware(request: NextRequest) {
   assert_origin: {
@@ -20,6 +20,11 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      auth: {
+        autoRefreshToken: false, // All my Supabase access is from server, so no need to refresh the token
+        detectSessionInUrl: false, // We are not using OAuth, so we don't need this. Also, we are manually "detecting" the session in the server-side code
+        persistSession: false, // All our access is from server, so no need to persist the session to browser's local storage
+      },
       cookies: {
         get(name: string) {
           return request.cookies.get(name)?.value;
@@ -63,7 +68,6 @@ export async function middleware(request: NextRequest) {
   );
 
   await supabase.auth.getSession();
-
   return response;
 }
 
