@@ -72,13 +72,9 @@ export const BusinessForm: React.FC<IProps> = ({onCancel, onSubmit, business = n
 
         <div className="flex justify-evenly p-4">
           <button className="p-4 bg-amber-400 rounded" type="submit">Submit</button>
-          <button className="p-4" onClick={() => onCancel()} type="button">Cancel</button>
+          <button className="p-4 border-solid border-white border-2 rounded" onClick={() => onCancel()} type="button">Cancel</button>
         </div>
       </form>
-
-      <p className="text-center text-gray-500 text-xs">
-        I hope when I get the job that we use ChakraUI or something :)
-      </p>
     </div>
   )
 }
