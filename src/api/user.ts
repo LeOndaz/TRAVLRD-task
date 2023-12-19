@@ -1,6 +1,6 @@
 import {SupabaseClient} from "@supabase/supabase-js";
 import {createClient} from "@/src/utils/supabase/client";
-import {User} from "@supabase/gotrue-js";
+import {User} from "@supabase/supabase-js";
 
 const client: SupabaseClient = createClient()
 
