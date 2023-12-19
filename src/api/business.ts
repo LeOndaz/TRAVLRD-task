@@ -1,28 +1,30 @@
+'use server';
+
 import {PostgrestSingleResponse, SupabaseClient} from "@supabase/supabase-js";
-import { createClient } from "@/src/utils/supabase/client"
-import {TBusiness, TBusinessUpdate} from "@/types/business";
+import {createClient} from "@/src/utils/supabase/client"
+import {TBusiness, TBusinessCreate, TBusinessUpdate} from "@/types/business";
 
-class BusinessAPI {
-  client: SupabaseClient = createClient()
-
-  getBusinesses = async (): Promise<PostgrestSingleResponse<TBusiness[]>> => {
-    return this.client.from('businesses')
-      .select(`
-        id,
-        name,
-        owner_email,
-        created_at
-      `);
-  }
-
-  updateBusiness = async (id: number, newData: TBusinessUpdate): Promise<PostgrestSingleResponse<null>> => {
-    return this.client.from('businesses').update(newData).eq("id", id);
-  }
-
-  deleteBusiness = async (id: number) => {
-    return this.client.from("businesses").delete().eq("id", id);
-  }
+const client: SupabaseClient = createClient()
+const fields = `
+      id,
+      name,
+      owner_email,
+      created_at
+  `
+export const getBusinesses = async (): Promise<PostgrestSingleResponse<TBusiness[]>> => {
+  return client.from('businesses').select(fields).returns<TBusiness[]>();
+}
+export const getBusinessById = async (id: number): Promise<any> => {
+  return client.from("businesses").select(fields).eq("id", id).single<TBusiness>();
+}
+export const updateBusiness = async (id: number, newData: TBusinessUpdate): Promise<PostgrestSingleResponse<null>> => {
+  return client.from('businesses').update(newData).eq("id", id);
 }
 
-const businessApi = new BusinessAPI();
-export default businessApi;
+export const deleteBusiness = async (id: number) => {
+  return client.from("businesses").delete().eq("id", id);
+}
+
+export const createBusiness = async (data: TBusinessCreate) => {
+  return client.from('businesses').insert(data)
+}

@@ -5,6 +5,7 @@ import {Inter} from 'next/font/google'
 import './globals.css'
 import {createClient} from "@/src/utils/supabase/server"
 import {UserProvider} from "@/src/components/contextProviders/UserProvider";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({subsets: ['latin']})
 
@@ -24,6 +25,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({children}) => {
   return (
     <html lang="en">
     <body className={inter.className}>
+    <Toaster position="top-right"/>
     <UserProvider value={data?.user || null}>
       {children}
     </UserProvider>

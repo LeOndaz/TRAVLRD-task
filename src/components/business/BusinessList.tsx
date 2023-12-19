@@ -3,7 +3,7 @@
 import DataTable, {TableColumn} from 'react-data-table-component';
 import {TBusiness, TBusinessUpdate} from "@/types/business";
 import {format} from 'date-fns';
-import businessApi from "@/src/api/business";
+import { businessApi } from "@/src/api";
 import React, {useEffect, useState} from "react";
 import Modal from "@/src/components/Modal";
 import {BusinessForm} from './BusinessForm';
@@ -11,7 +11,6 @@ import {useDeferredAction} from "@/src/hooks/useDeferredAction";
 import {FormProvider, useForm} from "react-hook-form";
 import {useCurrentUser} from "@/src/hooks/useCurrentUser";
 import {useBusinesses} from "@/src/hooks/useBusinesses";
-import {BusinessCard} from "@/src/components/business/BusinessCard";
 
 export const BusinessList = () => {
   // DateTable doesn't allow customizing the row component, so selectedRow gets set onRowClick
@@ -78,10 +77,6 @@ export const BusinessList = () => {
       name: "Owner",
       selector: row => row.owner_email
     },
-    {
-      name: "",
-      cell: (row: TBusiness) => <button onClick={() => handleBusinessDelete(row)}>x</button>
-    }
   ];
 
 
