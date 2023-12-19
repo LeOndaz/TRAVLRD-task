@@ -4,5 +4,5 @@ import {TDeferredActionResult} from "@/types/misc";
 import {TBusiness} from "@/types/business";
 
 export const useBusinesses = (deps: any[] = []): TDeferredActionResult<TBusiness[]> => {
-  return useDeferredAction<TBusiness[]>(businessApi.getBusinesses, deps, null)
+  return useDeferredAction<TBusiness[]>(businessApi.getBusinesses, deps, [])
 }

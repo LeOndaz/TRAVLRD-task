@@ -1,19 +1,22 @@
 'use client';
 
+import React from 'react';
 import {businessApi} from "@/src/api";
-import {redirect} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import {BusinessForm} from "@/src/components/business/BusinessForm";
-import React from "react";
 import {useCurrentUser} from "@/src/hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import {TBusinessCreate} from "@/types/business";
 
+
 export const BusinessCreateForm: React.FC = () => {
   const user = useCurrentUser();
+  const router = useRouter();
 
   const navigateBusiness = () => {
-    redirect('/businesses');
+    router.push('/businesses');
   }
+
   const onSubmit = async (data: TBusinessCreate) => {
     await businessApi.createBusiness({
       ...data,

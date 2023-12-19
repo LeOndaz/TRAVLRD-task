@@ -5,7 +5,8 @@ import {Inter} from 'next/font/google'
 import './globals.css'
 import {createClient} from "@/src/utils/supabase/server"
 import {UserProvider} from "@/src/components/contextProviders/UserProvider";
-import { Toaster } from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
+import Link from "next/link";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -22,10 +23,22 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({children}) => {
     password: '123',
   });
 
+  let loggedInAs = "Anonymous";
+
+  if (data?.user?.email) {
+    loggedInAs = `Logged in as ${data.user.email}`
+  }
+
   return (
     <html lang="en">
     <body className={inter.className}>
     <Toaster position="top-right"/>
+    <div className="flex justify-center items-center m-4">
+      <p className="p-4 border-solid border-amber-300 border-2 mr-4">{loggedInAs}</p>
+      <span className="border-2 border-solid border-white p-4">
+      <Link href="/businesses/create">Start a business</Link>
+      </span>
+    </div>
     <UserProvider value={data?.user || null}>
       {children}
     </UserProvider>

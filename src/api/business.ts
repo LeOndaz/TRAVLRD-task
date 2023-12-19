@@ -1,5 +1,3 @@
-'use server';
-
 import {PostgrestSingleResponse, SupabaseClient} from "@supabase/supabase-js";
 import {createClient} from "@/src/utils/supabase/client"
 import {TBusiness, TBusinessCreate, TBusinessUpdate} from "@/types/business";

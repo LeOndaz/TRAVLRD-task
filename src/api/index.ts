@@ -1,4 +1,5 @@
-import {deleteBusiness, getBusinessById, createBusiness, getBusinesses, updateBusiness} from './business'
+import {deleteBusiness, getBusinessById, createBusiness, getBusinesses, updateBusiness, } from './business'
+import {getCurrentUser, getSession} from './user'
 
 export const businessApi ={
   deleteBusiness,
@@ -6,4 +7,9 @@ export const businessApi ={
   getBusinesses,
   updateBusiness,
   createBusiness,
+}
+
+export const authApi = {
+  getCurrentUser,
+  getSession,
 }

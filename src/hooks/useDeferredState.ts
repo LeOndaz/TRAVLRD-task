@@ -5,7 +5,7 @@ import {PostgrestError} from "@supabase/supabase-js";
 
 
 export const useDeferredState = <T>(f: TDeferrableFunc<T>, deps = [], initialData = null): [T | null, boolean, Error | PostgrestError | null] => {
-  const [action, isLoading, data, error] = useDeferredAction(f,deps, initialData)
+  const [action, isLoading, data, error] = useDeferredAction<T>(f,deps, initialData)
 
   useEffect(() => {
     action();
